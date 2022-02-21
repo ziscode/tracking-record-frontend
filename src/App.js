@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Fragment} from 'react';
+import { AuthProvider } from './contexts/auth';
+import { AlertProvider } from './contexts/alert';
+import AppRoutes from './routes/Routes';
+import 'bootstrap/dist/css/bootstrap.css';
+import {Container} from 'react-bootstrap';
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <AuthProvider>
+      <AlertProvider>
+      <Container>
+        
+        <AppRoutes/>
+      </Container>
+      </AlertProvider>
+    </AuthProvider>
+    
   );
 }
 
