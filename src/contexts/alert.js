@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import Toasts from '../components/Toasts';
 import checkIcon from '../assets/check.svg';
 import errorIcon from '../assets/error.svg';
@@ -40,7 +40,7 @@ export const AlertProvider = ({ children }) => {
   }
 
   const createContent = (message, type = '' ) => {
-    let id = Math.floor((Math.random() * 101) + 1);
+    let id = Math.floor((Math.random() * 1001) + 1);
     let toastProperties = {id, title:'Title', description: message, variant:type, color:'#6c757d', backgroundColor:'#ffffff'};
 
     switch(type) {

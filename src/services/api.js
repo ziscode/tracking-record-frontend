@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { errorHandler } from '../helpers/errorhandler';
+import { ResponseHandler } from '../helpers/responseHandler';
 
 export const Api = (module = undefined) => {
     const storageKey = 'tr-app-storage';
-    const API_URL='http://localhost/tracking-record/backend/public/';
     const [ entities, setEntities ] = useState([]);
     const [filter, setFilter] = useState(null);
     const [ numItems, setNumItems ] = useState(null);
+    const { errorHandler } = ResponseHandler();
 
     const list = async (data={}, mod = undefined) => {
-        
+
         return axios
-            .post(`${API_URL}api/${module || mod}/list`, JSON.stringify(filterStorage(data)))
+            .post(`${axios.defaults.baseURL}api/${module || mod}/list`, JSON.stringify(filterStorage(data)))
             .then(function (response) {
                 if (response.data) {
                     setEntities(response.data.list);
@@ -27,7 +27,7 @@ export const Api = (module = undefined) => {
     const save = async (data = {}) => {
 
         return axios
-            .post(`${API_URL}api/${module}/save`, JSON.stringify(data))
+            .post(`${axios.defaults.baseURL}api/${module}/save`, JSON.stringify(data))
             .then(function (response) {
                 return response.data;
             }.bind(this))
@@ -38,7 +38,7 @@ export const Api = (module = undefined) => {
     const find = async (id) => {
 
         return axios
-            .post(`${API_URL}api/${module}/find/${id}`)
+            .post(`${axios.defaults.baseURL}api/${module}/find/${id}`)
             .then(function (response) {
                 return response.data;
             }.bind(this))
@@ -49,7 +49,7 @@ export const Api = (module = undefined) => {
     const remove = async (id) => {
 
         return axios
-            .post(`${API_URL}api/${module}/remove/${id}`)
+            .post(`${axios.defaults.baseURL}api/${module}/remove/${id}`)
             .then(function (response) {
                 return response.data;
             }.bind(this))

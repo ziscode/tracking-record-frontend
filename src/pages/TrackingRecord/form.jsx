@@ -9,7 +9,7 @@ import { Alert } from "../../contexts/alert";
 const TrackingRecordForm = (props) => {
     
     const context = Alert();
-    const { save, edit, find } = Api('trackingrecord');
+    const { save, find } = Api('trackingrecord');
     const navigate = useNavigate();
     const location = useLocation();
     const id = location.state && location.state.id;
@@ -62,7 +62,7 @@ const TrackingRecordForm = (props) => {
 
     return (
         <Card >
-            <Card.Header>Filter</Card.Header>
+            <Card.Header>Form</Card.Header>
             <Card.Body>
 
                 <Formik
@@ -80,12 +80,14 @@ const TrackingRecordForm = (props) => {
 
                         let result = await save(data);
                         
-                        if (result.errors)
+                        if (result.errors) {
                             actions.setErrors(result.errors);
+                        } else {
+                            context.success((id ? 'Record updated successfully.' : 'Record created successfully.'))
+                            navigate(-1);
+                        }
 
                         actions.setSubmitting(false);
-                        context.success((id ? 'Record updated successfully.' : 'Record created successfully.'))
-                        navigate(-1);
 
                     }}
                 >
